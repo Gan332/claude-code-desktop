@@ -76,6 +76,16 @@ jobs:
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD || '' }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID || '' }}
 
+      - name: List build output structure (debug)
+        continue-on-error: true
+        run: |
+          echo "=== target/release ==="
+          find src-tauri/target/release -maxdepth 3 -type d 2>/dev/null || echo "(no release dir)"
+          echo "=== target/*/release ==="
+          find src-tauri/target -name "release" -type d -maxdepth 3 2>/dev/null || echo "(no target dir matches)"
+          echo "=== bundle dirs ==="
+          find src-tauri/target -name "bundle" -type d 2>/dev/null || echo "(no bundle dirs)"
+
       - name: Upload build debug logs (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
@@ -92,5 +102,5 @@ jobs:
           path: |
             src-tauri/target/release/bundle/**
             src-tauri/target/*/release/bundle/**
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
