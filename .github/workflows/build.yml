@@ -64,7 +64,6 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k temp build.keychain
           rm -f certificate.p12
 
-
       - name: Build Tauri app
         run: |
           node ./node_modules/@tauri-apps/cli/tauri.js --version
@@ -82,6 +81,8 @@ jobs:
         if: always()
         with:
           name: ${{ matrix.platform }}-${{ github.sha }}
-          path: src-tauri/target/release/bundle/**
+          path: |
+            src-tauri/target/release/bundle/**
+            src-tauri/target/*/release/bundle/**
           if-no-files-found: warn
           retention-days: 14
