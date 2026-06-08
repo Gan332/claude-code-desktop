@@ -67,7 +67,8 @@ jobs:
       - name: Build Tauri app
         run: |
           node ./node_modules/@tauri-apps/cli/tauri.js --version
-          node ./node_modules/@tauri-apps/cli/tauri.js build --ci ${{ matrix.target && format('--target {0}', matrix.target) || '' }} 2>&1 | tee tauri-build.log
+          node ./node_modules/@tauri-apps/cli/tauri.js build --ci ${{ matrix.target && format('--target {0}', matrix.target) || '' }} > tauri-build.log 2>&1
+          cat tauri-build.log
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
