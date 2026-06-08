@@ -67,7 +67,7 @@ jobs:
       - name: Build Tauri app
         run: |
           node ./node_modules/@tauri-apps/cli/tauri.js --version
-          node ./node_modules/@tauri-apps/cli/tauri.js build --ci ${{ matrix.target && format('--target {0}', matrix.target) || '' }}
+          node ./node_modules/@tauri-apps/cli/tauri.js build --ci ${{ matrix.target && format('--target {0}', matrix.target) || '' }} 2>&1 | tee tauri-build.log
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
@@ -75,6 +75,14 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID || '' }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD || '' }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID || '' }}
+
+      - name: Upload build debug logs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-log-${{ matrix.platform == 'macos-latest' && 'macOS' || 'Windows' }}-${{ github.sha }}
+          path: tauri-build.log
+          retention-days: 7
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
