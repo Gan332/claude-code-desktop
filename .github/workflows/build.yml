@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - platform: macos-latest
-            args: --target universal-apple-darwin
+            args: # build default target
           - platform: windows-latest
             args: --target x86_64-pc-windows-msvc
 
