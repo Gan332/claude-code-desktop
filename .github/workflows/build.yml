@@ -76,7 +76,7 @@ jobs:
           rm certificate.p12
 
       - name: Build Tauri app
-        uses: tauri-apps/tauri-action@61337b436e85 # dev branch — latest Tauri v2 support
+        uses: tauri-apps/tauri-action@61337b436e85a75347fec553393c9e2be16a0d85 # dev branch — latest Tauri v2 support
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Tauri updater code signing
