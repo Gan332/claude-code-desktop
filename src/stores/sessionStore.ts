@@ -29,7 +29,7 @@ interface SessionState {
   loadSessions: () => Promise<void>;
 }
 
-export const useSessionStore = create<SessionState>((set, get) => ({
+export const useSessionStore = create<SessionState>((set, _get) => ({
   sessions: [],
   activeSessionId: null,
   isLoading: false,

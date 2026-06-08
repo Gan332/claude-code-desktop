@@ -69,9 +69,6 @@ export function Terminal({ sessionId, onCommand }: TerminalProps) {
     };
   }, [sessionId]);
 
-  const writeLine = (text: string) => {
-    xtermRef.current?.writeln(text);
-  };
 
   return (
     <div
