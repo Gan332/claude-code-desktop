@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/fish/**)",
+      "Read(//Users/fish/.claude/**)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(grep -E \"^[A-Z_]+$\")",
+      "Bash(python3 *)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(gh --version)"
+    ]
+  }
+}
